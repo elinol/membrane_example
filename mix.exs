@@ -48,7 +48,16 @@ defmodule MembraneExample.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:membrane_core, "~> 0.7.0", override: true},
+      {:telemetry, "~> 1.0", override: true},
+      {:membrane_element_tee, "~> 0.3.0"},
+      {:membrane_element_fake, "~> 0.4"},
+      {:membrane_aac_fdk_plugin, "~> 0.8.0"},
+      {:membrane_audiometer_plugin, "~> 0.5.0"},
+      {:membrane_http_adaptive_stream_plugin, github: "membraneframework/membrane_http_adaptive_stream_plugin"},
+      {:membrane_rtmp_plugin, github: "membraneframework/membrane_rtmp_plugin"},
+      {:membrane_ffmpeg_swresample_plugin, "~> 0.9"}
     ]
   end
 
