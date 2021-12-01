@@ -25,6 +25,9 @@ membrane_example-*.tar
 # Ignore assets that are produced by build tools.
 /priv/static/assets/
 
+# Ignore livestreams
+/priv/static/livestream
+
 # Ignore digested assets cache.
 /priv/static/cache_manifest.json
 

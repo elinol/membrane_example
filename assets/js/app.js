@@ -26,8 +26,32 @@ import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
+let hooks = {};
+
+hooks.LiveVideoAdded = {
+    mounted() {
+        var video = this.el;
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            // bind them together
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+                console.log('video and hls.js are now bound together !');
+                var path = video.dataset.path;
+                console.log("Loading:", path);
+                hls.loadSource(path);
+                hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+                console.log(
+                    'manifest loaded, found ' + data.levels.length + ' quality level'
+                );
+                });
+            });
+        }
+    }
+};
+
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}, hooks: hooks})
 
 // Show progress bar on live navigation and form submits
 topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})
